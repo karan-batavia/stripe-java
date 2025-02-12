@@ -15,7 +15,11 @@ public class CreditGrantCreateParams extends ApiRequestParams {
   @SerializedName("amount")
   Amount amount;
 
-  /** <strong>Required.</strong> Configuration specifying what this credit grant applies to. */
+  /**
+   * <strong>Required.</strong> Configuration specifying what this credit grant applies to. We
+   * currently only support {@code metered} prices that have a <a
+   * href="https://docs.stripe.com/api/billing/meter">Billing Meter</a> attached to them.
+   */
   @SerializedName("applicability_config")
   ApplicabilityConfig applicabilityConfig;
 
@@ -145,7 +149,11 @@ public class CreditGrantCreateParams extends ApiRequestParams {
       return this;
     }
 
-    /** <strong>Required.</strong> Configuration specifying what this credit grant applies to. */
+    /**
+     * <strong>Required.</strong> Configuration specifying what this credit grant applies to. We
+     * currently only support {@code metered} prices that have a <a
+     * href="https://docs.stripe.com/api/billing/meter">Billing Meter</a> attached to them.
+     */
     public Builder setApplicabilityConfig(
         CreditGrantCreateParams.ApplicabilityConfig applicabilityConfig) {
       this.applicabilityConfig = applicabilityConfig;
