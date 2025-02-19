@@ -11,6 +11,7 @@ import com.stripe.net.BaseAddress;
 import com.stripe.net.RequestOptions;
 import com.stripe.net.StripeResponseGetter;
 import com.stripe.param.terminal.ReaderPresentPaymentMethodParams;
+import com.stripe.param.terminal.ReaderSucceedInputCollectionParams;
 
 public final class ReaderService extends ApiService {
   public ReaderService(StripeResponseGetter responseGetter) {
@@ -50,6 +51,46 @@ public final class ReaderService extends ApiService {
     String path =
         String.format(
             "/v1/test_helpers/terminal/readers/%s/present_payment_method",
+            ApiResource.urlEncodeId(reader));
+    ApiRequest request =
+        new ApiRequest(
+            BaseAddress.API,
+            ApiResource.RequestMethod.POST,
+            path,
+            ApiRequestParams.paramsToMap(params),
+            options);
+    return this.request(request, Reader.class);
+  }
+  /**
+   * Succeeds an input collection on a simulated reader. Can be used to simulate collecting inputs.
+   */
+  public Reader succeedInputCollection(String reader, ReaderSucceedInputCollectionParams params)
+      throws StripeException {
+    return succeedInputCollection(reader, params, (RequestOptions) null);
+  }
+  /**
+   * Succeeds an input collection on a simulated reader. Can be used to simulate collecting inputs.
+   */
+  public Reader succeedInputCollection(String reader, RequestOptions options)
+      throws StripeException {
+    return succeedInputCollection(reader, (ReaderSucceedInputCollectionParams) null, options);
+  }
+  /**
+   * Succeeds an input collection on a simulated reader. Can be used to simulate collecting inputs.
+   */
+  public Reader succeedInputCollection(String reader) throws StripeException {
+    return succeedInputCollection(
+        reader, (ReaderSucceedInputCollectionParams) null, (RequestOptions) null);
+  }
+  /**
+   * Succeeds an input collection on a simulated reader. Can be used to simulate collecting inputs.
+   */
+  public Reader succeedInputCollection(
+      String reader, ReaderSucceedInputCollectionParams params, RequestOptions options)
+      throws StripeException {
+    String path =
+        String.format(
+            "/v1/test_helpers/terminal/readers/%s/succeed_input_collection",
             ApiResource.urlEncodeId(reader));
     ApiRequest request =
         new ApiRequest(

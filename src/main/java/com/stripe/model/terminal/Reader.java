@@ -30,6 +30,7 @@ import com.stripe.param.terminal.ReaderProcessSetupIntentParams;
 import com.stripe.param.terminal.ReaderRefundPaymentParams;
 import com.stripe.param.terminal.ReaderRetrieveParams;
 import com.stripe.param.terminal.ReaderSetReaderDisplayParams;
+import com.stripe.param.terminal.ReaderSucceedInputCollectionParams;
 import com.stripe.param.terminal.ReaderUpdateParams;
 import java.util.List;
 import java.util.Map;
@@ -1441,6 +1442,75 @@ public class Reader extends ApiResource implements HasId, MetadataStore<Reader> 
       String path =
           String.format(
               "/v1/test_helpers/terminal/readers/%s/present_payment_method",
+              ApiResource.urlEncodeId(this.resource.getId()));
+      ApiResource.checkNullTypedParams(path, params);
+      ApiRequest request =
+          new ApiRequest(
+              BaseAddress.API,
+              ApiResource.RequestMethod.POST,
+              path,
+              ApiRequestParams.paramsToMap(params),
+              options);
+      return resource.getResponseGetter().request(request, Reader.class);
+    }
+
+    /**
+     * Succeeds an input collection on a simulated reader. Can be used to simulate collecting
+     * inputs.
+     */
+    public Reader succeedInputCollection() throws StripeException {
+      return succeedInputCollection((Map<String, Object>) null, (RequestOptions) null);
+    }
+
+    /**
+     * Succeeds an input collection on a simulated reader. Can be used to simulate collecting
+     * inputs.
+     */
+    public Reader succeedInputCollection(RequestOptions options) throws StripeException {
+      return succeedInputCollection((Map<String, Object>) null, options);
+    }
+
+    /**
+     * Succeeds an input collection on a simulated reader. Can be used to simulate collecting
+     * inputs.
+     */
+    public Reader succeedInputCollection(Map<String, Object> params) throws StripeException {
+      return succeedInputCollection(params, (RequestOptions) null);
+    }
+
+    /**
+     * Succeeds an input collection on a simulated reader. Can be used to simulate collecting
+     * inputs.
+     */
+    public Reader succeedInputCollection(Map<String, Object> params, RequestOptions options)
+        throws StripeException {
+      String path =
+          String.format(
+              "/v1/test_helpers/terminal/readers/%s/succeed_input_collection",
+              ApiResource.urlEncodeId(this.resource.getId()));
+      ApiRequest request =
+          new ApiRequest(BaseAddress.API, ApiResource.RequestMethod.POST, path, params, options);
+      return resource.getResponseGetter().request(request, Reader.class);
+    }
+
+    /**
+     * Succeeds an input collection on a simulated reader. Can be used to simulate collecting
+     * inputs.
+     */
+    public Reader succeedInputCollection(ReaderSucceedInputCollectionParams params)
+        throws StripeException {
+      return succeedInputCollection(params, (RequestOptions) null);
+    }
+
+    /**
+     * Succeeds an input collection on a simulated reader. Can be used to simulate collecting
+     * inputs.
+     */
+    public Reader succeedInputCollection(
+        ReaderSucceedInputCollectionParams params, RequestOptions options) throws StripeException {
+      String path =
+          String.format(
+              "/v1/test_helpers/terminal/readers/%s/succeed_input_collection",
               ApiResource.urlEncodeId(this.resource.getId()));
       ApiResource.checkNullTypedParams(path, params);
       ApiRequest request =
