@@ -31,6 +31,7 @@ import com.stripe.param.terminal.ReaderRefundPaymentParams;
 import com.stripe.param.terminal.ReaderRetrieveParams;
 import com.stripe.param.terminal.ReaderSetReaderDisplayParams;
 import com.stripe.param.terminal.ReaderSucceedInputCollectionParams;
+import com.stripe.param.terminal.ReaderTimeoutInputCollectionParams;
 import com.stripe.param.terminal.ReaderUpdateParams;
 import java.util.List;
 import java.util.Map;
@@ -1511,6 +1512,57 @@ public class Reader extends ApiResource implements HasId, MetadataStore<Reader> 
       String path =
           String.format(
               "/v1/test_helpers/terminal/readers/%s/succeed_input_collection",
+              ApiResource.urlEncodeId(this.resource.getId()));
+      ApiResource.checkNullTypedParams(path, params);
+      ApiRequest request =
+          new ApiRequest(
+              BaseAddress.API,
+              ApiResource.RequestMethod.POST,
+              path,
+              ApiRequestParams.paramsToMap(params),
+              options);
+      return resource.getResponseGetter().request(request, Reader.class);
+    }
+
+    /** Completes an input collection with a timeout error on a simulated reader. */
+    public Reader timeoutInputCollection() throws StripeException {
+      return timeoutInputCollection((Map<String, Object>) null, (RequestOptions) null);
+    }
+
+    /** Completes an input collection with a timeout error on a simulated reader. */
+    public Reader timeoutInputCollection(RequestOptions options) throws StripeException {
+      return timeoutInputCollection((Map<String, Object>) null, options);
+    }
+
+    /** Completes an input collection with a timeout error on a simulated reader. */
+    public Reader timeoutInputCollection(Map<String, Object> params) throws StripeException {
+      return timeoutInputCollection(params, (RequestOptions) null);
+    }
+
+    /** Completes an input collection with a timeout error on a simulated reader. */
+    public Reader timeoutInputCollection(Map<String, Object> params, RequestOptions options)
+        throws StripeException {
+      String path =
+          String.format(
+              "/v1/test_helpers/terminal/readers/%s/timeout_input_collection",
+              ApiResource.urlEncodeId(this.resource.getId()));
+      ApiRequest request =
+          new ApiRequest(BaseAddress.API, ApiResource.RequestMethod.POST, path, params, options);
+      return resource.getResponseGetter().request(request, Reader.class);
+    }
+
+    /** Completes an input collection with a timeout error on a simulated reader. */
+    public Reader timeoutInputCollection(ReaderTimeoutInputCollectionParams params)
+        throws StripeException {
+      return timeoutInputCollection(params, (RequestOptions) null);
+    }
+
+    /** Completes an input collection with a timeout error on a simulated reader. */
+    public Reader timeoutInputCollection(
+        ReaderTimeoutInputCollectionParams params, RequestOptions options) throws StripeException {
+      String path =
+          String.format(
+              "/v1/test_helpers/terminal/readers/%s/timeout_input_collection",
               ApiResource.urlEncodeId(this.resource.getId()));
       ApiResource.checkNullTypedParams(path, params);
       ApiRequest request =
